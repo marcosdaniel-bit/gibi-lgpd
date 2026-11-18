@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Gibi digital interativo e educativo sobre a Lei Geral de Proteção de Dados Pessoais (LGPD).">
+<title>LGPD em Quadrinhos — A Missão dos Dados</title>
+<style>
+:root{
+  --navy:#142b55;--blue:#2368c4;--cyan:#55d7d0;--yellow:#ffd447;
+  --pink:#ff668c;--orange:#ff9b45;--paper:#fffdf5;--ink:#18233a;
+  --muted:#526079;--green:#55bd83;--shadow:5px 6px 0 var(--ink);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#dceaff;color:var(--ink);font-family:"Trebuchet MS",Arial,sans-serif;line-height:1.55}
+header{background:var(--navy);color:white;border-bottom:5px solid var(--ink);position:sticky;top:0;z-index:20}
+.topbar{max-width:1100px;margin:auto;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-weight:1000;letter-spacing:.4px}.brand span{color:var(--yellow)}
+.top-actions{display:flex;align-items:center;gap:8px}
+button,.btn{font:inherit;font-weight:900;border:3px solid var(--ink);border-radius:12px;padding:9px 14px;background:var(--yellow);color:var(--ink);box-shadow:3px 3px 0 var(--ink);cursor:pointer;text-decoration:none}
+button:hover,.btn:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--ink)}
+button:focus-visible,a:focus-visible{outline:4px solid var(--pink);outline-offset:3px}
+.hero{background:var(--blue);color:white;border-bottom:5px solid var(--ink);overflow:hidden}
+.hero-inner{max-width:1100px;margin:auto;padding:50px 22px 45px;display:grid;grid-template-columns:1.25fr .75fr;align-items:center;gap:24px}
+.kicker{display:inline-block;background:var(--cyan);color:var(--ink);font-weight:1000;padding:5px 12px;border:3px solid var(--ink);border-radius:8px;transform:rotate(-2deg)}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:.98;margin:18px 0;text-transform:uppercase;text-shadow:3px 4px 0 var(--navy)}
+.hero p{font-size:1.12rem;max-width:650px}
+.hero-art{font-size:clamp(7rem,17vw,12rem);text-align:center;filter:drop-shadow(5px 6px 0 var(--ink));transform:rotate(7deg)}
+main{max-width:1100px;margin:auto;padding:28px 18px 60px}
+.progress-wrap{background:white;border:3px solid var(--ink);border-radius:14px;padding:12px 15px;box-shadow:var(--shadow);margin-bottom:24px}
+.progress-line{height:13px;background:#e5eaf3;border:2px solid var(--ink);border-radius:20px;overflow:hidden;margin-top:8px}
+.progress-fill{height:100%;width:12.5%;background:var(--green);transition:width .25s}
+.chapter-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin:25px 0 16px}
+.chapter-label{font-weight:1000;background:var(--pink);padding:6px 12px;border:3px solid var(--ink);border-radius:8px;box-shadow:3px 3px 0 var(--ink)}
+h2{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.1;margin:8px 0;color:var(--navy)}
+.subtitle{color:var(--muted);margin:0}
+.comic-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.panel{background:var(--paper);border:4px solid var(--ink);border-radius:12px;box-shadow:var(--shadow);overflow:hidden;display:flex;flex-direction:column;min-height:270px}
+.panel-top{padding:10px 14px;background:var(--yellow);border-bottom:3px solid var(--ink);font-weight:1000;display:flex;justify-content:space-between;gap:8px}
+.panel-art{min-height:110px;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px;background:linear-gradient(135deg,#eaf5ff,#d4f4ef);font-size:clamp(2.8rem,7vw,4.6rem)}
+.panel:nth-child(2n) .panel-art{background:linear-gradient(135deg,#fff0d7,#ffe0e9)}
+.bubble{margin:0 14px 14px;background:white;border:3px solid var(--ink);border-radius:18px;padding:12px 14px;position:relative;font-weight:650}
+.bubble:before{content:"";position:absolute;top:-11px;left:26px;width:17px;height:17px;background:white;border-left:3px solid var(--ink);border-top:3px solid var(--ink);transform:rotate(45deg)}
+.bubble strong{color:#1559a7}
+.narration{margin:15px 0;background:#fff3b8;border:3px dashed var(--ink);padding:13px 16px;border-radius:10px;font-weight:700}
+.info-box{background:#e9f8f3;border:3px solid var(--ink);border-radius:12px;padding:16px;margin:18px 0}
+.info-box h3{margin:0 0 8px;color:var(--navy)}
+.info-box ul{margin:8px 0 0;padding-left:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mini-card{background:white;border:3px solid var(--ink);border-radius:12px;padding:14px}
+.mini-card h3{margin:0 0 7px}
+.chapter{display:none;animation:pop .25s ease}
+.chapter.active{display:block}
+@keyframes pop{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:none}}
+.nav-buttons{display:flex;justify-content:space-between;gap:12px;margin:28px 0}
+.nav-buttons button:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.dots{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin:18px 0}
+.dot{width:17px;height:17px;padding:0;border-radius:50%;background:white}
+.dot.active{background:var(--pink)}
+.quiz{background:#fff;border:4px solid var(--ink);border-radius:14px;padding:18px;box-shadow:var(--shadow);margin-top:22px}
+.quiz-option{display:block;width:100%;text-align:left;margin:9px 0;background:#edf4ff}
+.quiz-option.correct{background:#c9f4d9}.quiz-option.wrong{background:#ffd6df}
+#quizFeedback{font-weight:800;margin-top:10px}
+.sources a{color:#0759a8;font-weight:800}
+footer{background:var(--navy);color:white;text-align:center;padding:28px 18px;border-top:5px solid var(--ink)}
+footer a{color:var(--cyan)}
+.small{font-size:.9rem;color:var(--muted)}
+@media(max-width:720px){.hero-inner{grid-template-columns:1fr;text-align:center;padding-top:35px}.hero-art{font-size:7rem}.comic-grid,.two{grid-template-columns:1fr}.panel{min-height:0}.topbar{flex-wrap:wrap}.brand{font-size:.95rem}}
+@media print{header,.nav-buttons,.dots,.quiz,.top-actions{display:none!important}.chapter{display:block!important;page-break-after:always}.panel{break-inside:avoid;box-shadow:none}body{background:white}.hero{print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header>
+ <div class="topbar">
+  <div class="brand">📘 LGPD <span>EM QUADRINHOS</span></div>
+  <div class="top-actions"><button onclick="window.print()">🖨️ Imprimir</button><a class="btn" href="#historia">Ler o gibi ↓</a></div>
+ </div>
+</header>
+<section class="hero">
+ <div class="hero-inner">
+  <div>
+   <span class="kicker">UMA AVENTURA PELA PRIVACIDADE</span>
+   <h1>A missão de proteger os dados!</h1>
+   <p>Entre nessa história e descubra como a Lei Geral de Proteção de Dados protege informações pessoais — em casa, na escola, no trabalho e na internet.</p>
+   <a class="btn" href="#historia">COMEÇAR A AVENTURA 🚀</a>
+  </div>
+  <div class="hero-art" aria-label="Escudo e cadeado">🛡️🔐</div>
+ </div>
+</section>
+<main id="historia">
+ <div class="progress-wrap">
+  <div><strong id="progressText">Capítulo 1 de 8</strong> <span class="small">— sua leitura</span></div>
+  <div class="progress-line"><div class="progress-fill" id="progressFill"></div></div>
+ </div>
+
+ <section class="chapter active" data-title="O mistério dos dados">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 1</span><span>🕵️ O começo da missão</span></div>
+  <h2>O mistério dos dados pessoais</h2><p class="subtitle">Conheça a lei que ajuda a proteger a privacidade.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">CENA 1 <span>🏙️</span></div><div class="panel-art">🧑‍🎓 💬 📱</div><p class="bubble"><strong>Lia:</strong> “Toda vez que faço uma compra ou cadastro em um aplicativo, pedem meus dados. O que acontece com eles?”</p></article>
+   <article class="panel"><div class="panel-top">CENA 2 <span>🦸</span></div><div class="panel-art">🦸‍♀️ 🛡️</div><p class="bubble"><strong>Guardião dos Dados:</strong> “É aí que entra a LGPD! Ela estabelece regras para o uso de dados pessoais.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 3 <span>📜</span></div><div class="panel-art">📖 ⚖️ 🔐</div><p class="bubble"><strong>Guardião:</strong> “A Lei nº 13.709 foi aprovada em 2018. Ela vale para o tratamento de dados por organizações públicas e privadas e também por pessoas, nas situações abrangidas pela lei.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 4 <span>💡</span></div><div class="panel-art">🤔 ✨</div><p class="bubble"><strong>Lia:</strong> “Então não é só guardar informações: é preciso ter finalidade, respeitar a lei e cuidar da segurança!”</p></article>
+  </div>
+  <div class="narration">📌 Narrador: tratamento inclui operações como coleta, uso, consulta, armazenamento, compartilhamento e eliminação de dados pessoais.</div>
+ </section>
+
+ <section class="chapter" data-title="Que dados são esses?">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 2</span><span>🪪 Identificando informações</span></div>
+  <h2>Que dados precisam de proteção?</h2><p class="subtitle">Nem todo dado tem a mesma natureza. Vamos conhecer alguns exemplos.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">CENA 1 — DADOS PESSOAIS</div><div class="panel-art">🪪 🏠 ✉️</div><p class="bubble"><strong>Lia:</strong> “Meu nome, CPF, RG, endereço, telefone e e-mail podem me identificar. São dados pessoais!”</p></article>
+   <article class="panel"><div class="panel-top">CENA 2 — DADOS SENSÍVEIS</div><div class="panel-art">❤️ 🧬 🏥</div><p class="bubble"><strong>Guardião:</strong> “Dados sobre saúde, biometria, origem racial ou étnica, religião, opinião política e vida sexual recebem proteção especial na LGPD.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 3 — AMBIENTE DIGITAL</div><div class="panel-art">📍 💻 🌐</div><p class="bubble"><strong>Lia:</strong> “Identificadores online, registros de acesso e localização também podem ser dados pessoais, dependendo do contexto.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 4 — ATENÇÃO!</div><div class="panel-art">🚨 🔍</div><p class="bubble"><strong>Guardião:</strong> “Antes de coletar uma informação, pergunte: ela é necessária? Para qual finalidade? Qual é a base legal adequada?”</p></article>
+  </div>
+  <div class="info-box"><h3>🔎 Lembrete importante</h3><p>Dados pessoais sensíveis são uma categoria definida pela lei. Dados financeiros, por exemplo, são pessoais quando identificam alguém, mas não são automaticamente classificados como sensíveis pela LGPD.</p></div>
+ </section>
+
+ <section class="chapter" data-title="Onde ter cuidado">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 3</span><span>🏢 A proteção em cada setor</span></div>
+  <h2>Onde precisamos ter cuidado?</h2><p class="subtitle">A proteção de dados é responsabilidade de todos os setores.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">RECURSOS HUMANOS 👥</div><div class="panel-art">📄 🧑‍💼 🔒</div><p class="bubble">“Currículos, documentos de contratação, dados de dependentes e folha de pagamento precisam de acesso restrito.”</p></article>
+   <article class="panel"><div class="panel-top">SAÚDE 🏥</div><div class="panel-art">🩺 🗂️ ❤️</div><p class="bubble">“Prontuários, exames, diagnósticos e históricos médicos são informações que exigem proteção especial.”</p></article>
+   <article class="panel"><div class="panel-top">COMÉRCIO 🛒</div><div class="panel-art">🛍️ 💳 📦</div><p class="bubble">“Cadastros de clientes, endereços, histórico de compras e informações de pagamento devem ser protegidos.”</p></article>
+   <article class="panel"><div class="panel-top">TECNOLOGIA E TI 🖥️</div><div class="panel-art">🖥️ 🗄️ 🔑</div><p class="bubble">“Bancos de dados, permissões, logs, backups e sistemas precisam de gestão segura.”</p></article>
+   <article class="panel"><div class="panel-top">EDUCAÇÃO 🎓</div><div class="panel-art">📚 🧒 📝</div><p class="bubble">“Dados de estudantes, responsáveis, notas, frequência e imagens também merecem cuidado.”</p></article>
+   <article class="panel"><div class="panel-top">FINANCEIRO 💰</div><div class="panel-art">🏦 💵 🔐</div><p class="bubble">“Dados bancários, comprovantes, cobranças e documentos financeiros não devem ficar expostos.”</p></article>
+  </div>
+ </section>
+
+ <section class="chapter" data-title="O perigo está na rede">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 4</span><span>⚠️ Reconhecendo ameaças</span></div>
+  <h2>O perigo está na internet!</h2><p class="subtitle">Um clique distraído ou um acesso indevido pode colocar informações em risco.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">PHISHING 🎣</div><div class="panel-art">📧 🎣 😨</div><p class="bubble"><strong>Vilão:</strong> “Clique aqui e informe sua senha!” <strong>Lia:</strong> “Vou verificar o remetente e o endereço antes de clicar.”</p></article>
+   <article class="panel"><div class="panel-top">SENHA FRACA 🔓</div><div class="panel-art">🔑 123456 🚫</div><p class="bubble"><strong>Guardião:</strong> “Senhas fáceis ou repetidas facilitam invasões. Crie senhas fortes e únicas.”</p></article>
+   <article class="panel"><div class="panel-top">ACESSO INDEVIDO 🕵️</div><div class="panel-art">🖥️ 👀 🚨</div><p class="bubble"><strong>Lia:</strong> “Cada pessoa deve acessar somente o que precisa para sua função.”</p></article>
+   <article class="panel"><div class="panel-top">VAZAMENTO DE DADOS 💥</div><div class="panel-art">🗃️ 💧 🚨</div><p class="bubble"><strong>Guardião:</strong> “Dados expostos, perdidos ou enviados à pessoa errada podem causar danos e exigem resposta rápida.”</p></article>
+  </div>
+  <div class="info-box"><h3>Outros riscos para observar</h3><ul><li>Coleta excessiva de informações.</li><li>Armazenamento inseguro e falta de backups.</li><li>Compartilhamento sem finalidade ou base legal adequada.</li><li>Dispositivos e programas desatualizados.</li></ul></div>
+ </section>
+
+ <section class="chapter" data-title="Superpoderes da proteção">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 5</span><span>🛡️ Boas práticas</span></div>
+  <h2>Ative os superpoderes da proteção!</h2><p class="subtitle">Pequenas atitudes ajudam a reduzir riscos no dia a dia.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">PODER 1 — SENHAS FORTES</div><div class="panel-art">🔐 ✨</div><p class="bubble">Use senhas longas, únicas e difíceis de adivinhar. Ative autenticação em duas etapas sempre que possível.</p></article>
+   <article class="panel"><div class="panel-top">PODER 2 — ACESSO CONTROLADO</div><div class="panel-art">🪪 🚪</div><p class="bubble">Conceda acesso somente a quem precisa. Revise permissões e remova acessos que não são mais necessários.</p></article>
+   <article class="panel"><div class="panel-top">PODER 3 — ATUALIZAÇÃO</div><div class="panel-art">💻 🔄</div><p class="bubble">Mantenha sistemas, aplicativos e dispositivos atualizados para corrigir falhas de segurança.</p></article>
+   <article class="panel"><div class="panel-top">PODER 4 — BACKUP</div><div class="panel-art">☁️ 💾</div><p class="bubble">Faça cópias de segurança e teste a recuperação dos arquivos importantes.</p></article>
+   <article class="panel"><div class="panel-top">PODER 5 — MINIMIZAÇÃO</div><div class="panel-art">📋 ✂️</div><p class="bubble">Colete e mantenha apenas os dados necessários para uma finalidade legítima e informada.</p></article>
+   <article class="panel"><div class="panel-top">PODER 6 — CONSCIENTIZAÇÃO</div><div class="panel-art">🧑‍🏫 💡</div><p class="bubble">Oriente equipes, reconheça golpes e tenha procedimentos para comunicar e tratar incidentes.</p></article>
+  </div>
+ </section>
+
+ <section class="chapter" data-title="Seus direitos">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 6</span><span>🙋 Direitos do titular</span></div>
+  <h2>Conheça seus direitos!</h2><p class="subtitle">A pessoa a quem os dados se referem é chamada de titular.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">CONFIRMAÇÃO E ACESSO 🔎</div><div class="panel-art">👀 📂</div><p class="bubble">“Posso saber se meus dados são tratados e solicitar acesso a eles.”</p></article>
+   <article class="panel"><div class="panel-top">CORREÇÃO ✏️</div><div class="panel-art">📝 ✅</div><p class="bubble">“Posso pedir a correção de dados incompletos, inexatos ou desatualizados.”</p></article>
+   <article class="panel"><div class="panel-top">ELIMINAÇÃO 🗑️</div><div class="panel-art">📄 🗑️</div><p class="bubble">“Posso solicitar a eliminação de dados tratados com consentimento, observadas as hipóteses legais de conservação.”</p></article>
+   <article class="panel"><div class="panel-top">PORTABILIDADE 📦</div><div class="panel-art">📁 ➡️</div><p class="bubble">“Posso solicitar portabilidade, conforme a regulamentação da autoridade nacional.”</p></article>
+   <article class="panel"><div class="panel-top">INFORMAÇÃO ℹ️</div><div class="panel-art">💬 📚</div><p class="bubble">“Posso obter informações sobre compartilhamento e sobre a possibilidade de não fornecer consentimento, quando aplicável.”</p></article>
+   <article class="panel"><div class="panel-top">REVOGAÇÃO ✋</div><div class="panel-art">🖐️ 📃</div><p class="bubble">“Se o tratamento usar consentimento como base legal, posso revogá-lo nos termos da lei.”</p></article>
+  </div>
+  <div class="narration">📌 Os direitos têm condições e exceções previstas na LGPD. O titular pode procurar o controlador — organização responsável pelas decisões sobre o tratamento — para exercer seus direitos.</div>
+ </section>
+
+ <section class="chapter" data-title="Quando a lei é descumprida">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 7</span><span>⚖️ Consequências</span></div>
+  <h2>O que acontece quando a LGPD é descumprida?</h2><p class="subtitle">A proteção de dados é também uma responsabilidade legal.</p>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">CENA 1 — UM INCIDENTE</div><div class="panel-art">🏢 💥 🗂️</div><p class="bubble"><strong>Lia:</strong> “Uma empresa deixou dados de clientes expostos. Isso pode trazer consequências?”</p></article>
+   <article class="panel"><div class="panel-top">CENA 2 — A AUTORIDADE</div><div class="panel-art">🏛️ ⚖️</div><p class="bubble"><strong>Guardião:</strong> “A ANPD fiscaliza e pode aplicar sanções administrativas, conforme a lei e a análise do caso.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 3 — POSSÍVEIS SANÇÕES</div><div class="panel-art">📢 🚫 📋</div><p class="bubble">As sanções incluem advertência, publicização da infração, bloqueio ou eliminação de dados e multa, entre outras previstas na LGPD.</p></article>
+   <article class="panel"><div class="panel-top">CENA 4 — LIMITE DA MULTA</div><div class="panel-art">💰 ⚠️</div><p class="bubble">A multa simples pode chegar a 2% do faturamento da pessoa jurídica privada no Brasil, excluídos os tributos, limitada a R$ 50 milhões por infração.</p></article>
+  </div>
+  <div class="info-box"><h3>Além das sanções</h3><p>Incidentes podem causar prejuízos financeiros, danos à reputação, perda de confiança e impactos às pessoas afetadas. A aplicação de sanções depende do procedimento e dos critérios legais.</p></div>
+ </section>
+
+ <section class="chapter" data-title="A missão continua">
+  <div class="chapter-head"><span class="chapter-label">CAPÍTULO 8</span><span>🌟 A missão final</span></div>
+  <h2>A proteção de dados é missão de todos!</h2>
+  <div class="comic-grid">
+   <article class="panel"><div class="panel-top">CENA 1 — APRENDIZADO</div><div class="panel-art">🧑‍🎓 🦸‍♀️</div><p class="bubble"><strong>Lia:</strong> “Agora sei identificar dados pessoais, reconhecer riscos e respeitar os direitos dos titulares!”</p></article>
+   <article class="panel"><div class="panel-top">CENA 2 — ATITUDE</div><div class="panel-art">🔐 🤝 🏢</div><p class="bubble"><strong>Guardião:</strong> “E lembre-se: organizações devem planejar o tratamento, proteger os dados e orientar suas equipes.”</p></article>
+   <article class="panel"><div class="panel-top">CENA 3 — COMPROMISSO</div><div class="panel-art">🛡️ 🌍 ✨</div><p class="bubble"><strong>Todos:</strong> “Privacidade, respeito e segurança: essa missão é de todos!”</p></article>
+   <article class="panel"><div class="panel-top">FIM... OU COMEÇO?</div><div class="panel-art">📘 🚀</div><p class="bubble">Compartilhe conhecimento. Converse sobre privacidade. Proteja informações no cotidiano!</p></article>
+  </div>
+  <div class="info-box sources"><h3>📚 Saiba mais em fontes oficiais</h3>
+   <ul>
+    <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm" target="_blank" rel="noopener">Lei nº 13.709/2018 — texto da LGPD</a></li>
+    <li><a href="https://www.gov.br/anpd/pt-br" target="_blank" rel="noopener">ANPD — Autoridade Nacional de Proteção de Dados</a></li>
+    <li><a href="https://www.gov.br/anpd/pt-br/assuntos/direitos-dos-titulares" target="_blank" rel="noopener">ANPD — Direitos dos titulares</a></li>
+   </ul>
+   <p class="small">Material educativo. Não substitui orientação jurídica. Consulte a legislação e as orientações oficiais atualizadas.</p>
+  </div>
+  <div class="quiz">
+   <h3>🎯 Desafio do Guardião: você aprendeu?</h3>
+   <p id="question">Qual destas informações é considerada dado pessoal sensível pela LGPD?</p>
+   <button class="quiz-option" onclick="answer(this,false)">A) Cor favorita</button>
+   <button class="quiz-option" onclick="answer(this,true)">B) Dado referente à saúde</button>
+   <button class="quiz-option" onclick="answer(this,false)">C) Marca do computador da empresa</button>
+   <p id="quizFeedback" aria-live="polite"></p>
+   <button onclick="resetQuiz()">Tentar novamente ↻</button>
+  </div>
+ </section>
+
+ <div class="dots" id="dots" aria-label="Escolher capítulo"></div>
+ <div class="nav-buttons">
+  <button id="prevBtn" onclick="changeChapter(-1)" disabled>← Anterior</button>
+  <button id="nextBtn" onclick="changeChapter(1)">Próximo capítulo →</button>
+ </div>
+</main>
+<footer>
+ <p><strong>📘 LGPD EM QUADRINHOS</strong></p>
+ <p>Proteja seus dados. Respeite a privacidade. Compartilhe conhecimento!</p>
+ <p class="small" style="color:#dceaff">Projeto educativo • Lei Geral de Proteção de Dados Pessoais</p>
+</footer>
+<script>
+const chapters=[...document.querySelectorAll('.chapter')];
+let current=0;
+const dots=document.getElementById('dots');
+chapters.forEach((chapter,i)=>{
+ const b=document.createElement('button');
+ b.className='dot'+(i===0?' active':'');
+ b.title='Ir para '+chapter.dataset.title;
+ b.setAttribute('aria-label',b.title);
+ b.onclick=()=>showChapter(i);
+ dots.appendChild(b);
+});
+function showChapter(i){
+ current=Math.max(0,Math.min(chapters.length-1,i));
+ chapters.forEach((c,n)=>c.classList.toggle('active',n===current));
+ [...dots.children].forEach((d,n)=>d.classList.toggle('active',n===current));
+ document.getElementById('prevBtn').disabled=current===0;
+ document.getElementById('nextBtn').textContent=current===chapters.length-1?'Voltar ao início ↺':'Próximo capítulo →';
+ document.getElementById('progressText').textContent=`Capítulo ${current+1} de ${chapters.length} — ${chapters[current].dataset.title}`;
+ document.getElementById('progressFill').style.width=((current+1)/chapters.length*100)+'%';
+}
+function changeChapter(step){showChapter(current+step);document.getElementById('historia').scrollIntoView({behavior:'smooth'});}
+function answer(button,correct){
+ document.querySelectorAll('.quiz-option').forEach(b=>{b.disabled=true;if(b.textContent.startsWith('B)'))b.classList.add('correct');});
+ if(!correct)button.classList.add('wrong');
+ document.getElementById('quizFeedback').textContent=correct?'Muito bem! Dados referentes à saúde são dados pessoais sensíveis. 🛡️':'Quase! A resposta correta é dado referente à saúde. Tente novamente para fixar o conteúdo.';
+}
+function resetQuiz(){
+ document.querySelectorAll('.quiz-option').forEach(b=>{b.disabled=false;b.classList.remove('correct','wrong');});
+ document.getElementById('quizFeedback').textContent='';
+}
+showChapter(0);
+</script>
+</body>
+</html>
